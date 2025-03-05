@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 Inputs + 2 Results (3 Columns Per Row)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            width: 120%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a.button:hover {
+            background-color: #218838;
+        }
+        img {
+            display: block;
+            margin: 10px auto; /* จัดรูปให้อยู่กึ่งกลาง */
+            max-width: 100%; /* ขนาดรูปไม่เกินขนาดของ container */
+            height: auto;
+            border-radius: 10px; /* เพิ่มมุมโค้ง */
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px; /* ระยะห่างระหว่างคอลัมน์ */
+            margin: auto;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            vertical-align: middle;
+        }
+        input {
+            width: 80%;
+            padding: 5px;
+            font-size: 16px;
+            text-align: center;
+            display: block;
+            margin: auto;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            text-align: left; /* ทำให้ตัวหนังสือผลลัพธ์ชิดซ้าย */
+            padding-left: 15px; /* เพิ่มระยะห่างจากขอบ */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>LCalculator</h2>
+
+        <table>
+            <!-- หัวตาราง -->
+            <tr>
+                <th> Diagram of Rotary Drum Dryer : Direct contract Counter-flow<img src="./Dryer.png" alt="Diagram of Dryer"></th>
+                <th> Flue gas composition Diagram <img src="./diagram.png" alt="Diagram of Flue gas composition"></th>
+                <th>Moisture Removal diagram<img src="./Moisture.png" alt="Diagram of Moisture Removal"></th>
+            </tr>
+
+
+            <tr>
+                <th>Fuel Properties</th>
+                <th>Boiler Properties</th>
+                <th>Dryer Properties</th>
+            </tr>
+
+            <!-- แถวที่ 1 -->
+            <tr>
+                <td>
+                    <label for="woodchip">Fuel 1 (%)</label>
+                    <input type="number" id="woodchip" name="woodchip" placeholder="Enter percentage" required>
+
+                    <label for="mwc">Moisture of Fuel 1 (%)</label>
+                    <input type="number" id="mwc" name="mwc" placeholder="Enter percentage" required>
+
+                    <label for="palmFrond">Fuel 2 (%)</label>
+                    <input type="number" id="palmFrond" name="palmFrond" placeholder="Enter percentage" required>
+
+                    <label for="mpf">Moisture of Fuel 2 (%)</label>
+                    <input type="number" id="mpf" name="mpf" placeholder="Enter percentage" required>
+
+                    <label for="efb">Fuel 3 (%)</label>
+                    <input type="number" id="efb" name="efb" placeholder="Enter percentage" required>
+
+                    <label for="mefb">Moisture of Fuel 3 (%)</label>
+                    <input type="number" id="mefb" name="mefb" placeholder="Enter percentage" required>
+
+            </td>
+                <td>
+                    <a class="button" href="https://toolbox.tlv.com/global/TI/calculator/steam-table-temperature.html" target="_blank">Calculator: Steam and Water Table by Temperature</a>
+
+                    <label for="BSFR">Boiler Steam Flow Rate (T/H)</label>
+                    <input type="number" id="BSFR" name="BSFR" placeholder="Enter T/H" required>
+        
+                    <label for="BSE">Boiler Steam Enthalpy (kJ/kg)</label>
+                    <input type="number" id="BSE" name="BSE" placeholder="Enter kJ/kg" required>
+        
+                    <label for="BE">Boiler Efficiency (%)</label>
+                    <input type="number" id="BE" name="BE" placeholder="Enter percentage" required>
+        
+                    <label for="FWE">Feed Water Enthalpy (kJ/kg)</label>
+                    <input type="number" id="FWE" name="FWE" placeholder="Enter kJ/kg" required>
+
+                    <label for="LHV">Lower Heating Value (kJ/kg)</label>
+                    <input type="number" id="LHV" name="LHV" placeholder="Enter kJ/kg" required>
+
+                </td>
+                <td>
+                    <label for="tif">Temperature of Inlet Flue Gas (C)</label>
+                    <input type="number" id="tif" name="tif" oninput="syncInputs()" placeholder="Enter C" required>
+
+                    <label for="tofg">Temperature of Outlet Flue Gas (C)</label>
+                    <input type="number" id="tofg" name="tofg" placeholder="Enter C" value="150" required>
+
+                    <label for="tia">Temperature of Inlet Solid Fuel (C)</label>
+                    <input type="number" id="tia" name="tia" placeholder="Enter C" required>
+
+                    <label for="toa">Temperature of Outlet Solid Fuel (C)</label>
+                    <input type="number" id="toa" name="toa" placeholder="Enter C" required>
+
+                    <label for="cpfg">Cp of Flue Gas (kJ/kgK)</label>
+                    <input type="number" id="cpfg" name="cpfg" placeholder="Enter kJ/kgK" required>
+
+                    <label for="cpf">Cp of Fuel (kJ/kgK)</label>
+                    <input type="number" id="cpf" name="cpf" placeholder="Enter kJ/kgK" required>
+
+                    <label for="u">Volumetric heat transfer coefficient(Ua) (w/m^3u)</label>
+                    <input type="number" id="u" name="u" placeholder="Enter w/m^2u" value="790" required>
+
+                    <label for="L">Dryer Length (m)</label>
+                    <input type="number" id="L" name="L" placeholder="Enter m" required>
+
+                </td>
+            </tr>
+
+            <tr>
+                <th>Fuel 1 Properties</th>
+                <th>Fuel 2 Properties</th>
+                <th>Fuel 3 Properties</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="wc">Fuel 1 Carbon (%)</label>
+                    <input type="number" id="wc" name="wc" placeholder="Enter percentage" required>
+
+                    <label for="wh">Fuel 1 Hydrogen (%)</label>
+                    <input type="number" id="wh" name="wh" placeholder="Enter percentage" required>
+
+                    <label for="wn">Fuel 1 Nitrogen (%)</label>
+                    <input type="number" id="wn" name="wn" placeholder="Enter percentage" required>
+
+                    <label for="ws">Fuel 1 Sulphur (%)</label>
+                    <input type="number" id="ws" name="ws" placeholder="Enter percentage" required>
+
+                    <label for="wo">Fuel 1 Oxygen (%)</label>
+                    <input type="number" id="wo" name="wo" placeholder="Enter percentage" required>
+
+                    <label for="wa">Fuel 1 Ash (%)</label>
+                    <input type="number" id="wa" name="wa" placeholder="Enter percentage" required>
+                </td>
+                <td>
+                    <label for="pfc">Fuel 2 Carbon (%)</label>
+                    <input type="number" id="pfc" name="pfc" placeholder="Enter percentage" required>
+
+                    <label for="pfh">Fuel 2 Hydrogen (%)</label>
+                    <input type="number" id="pfh" name="pfh" placeholder="Enter percentage" required>
+
+                    <label for="pfn">Fuel 2 Nitrogen (%)</label>
+                    <input type="number" id="pfn" name="pfn" placeholder="Enter percentage" required>
+
+                    <label for="pfs">Fuel 2 Sulphur (%)</label>
+                    <input type="number" id="pfs" name="pfs" placeholder="Enter percentage" required>
+
+                    <label for="pfo">Fuel 2 Oxygen (%)</label>
+                    <input type="number" id="pfo" name="pfo" placeholder="Enter percentage" required>
+
+                    <label for="pfa">Fuel 2 Ash (%)</label>
+                    <input type="number" id="pfa" name="pfa" placeholder="Enter percentage" required>
+                </td>
+                <td>
+                    <label for="ec">Fuel 3 Carbon (%)</label>
+                    <input type="number" id="ec" name="ec" placeholder="Enter percentage" required>
+
+                    <label for="eh">Fuel 3 Hydrogen (%)</label>
+                    <input type="number" id="eh" name="eh" placeholder="Enter percentage" required>
+
+                    <label for="en">Fuel 3 Nitrogen (%)</label>
+                    <input type="number" id="en" name="en" placeholder="Enter percentage" required>
+
+                    <label for="es">Fuel 3 Sulphur (%)</label>
+                    <input type="number" id="es" name="es" placeholder="Enter percentage" required>
+
+                    <label for="eo">Fuel 3 Oxygen (%)</label>
+                    <input type="number" id="eo" name="eo" placeholder="Enter percentage" required>
+
+                    <label for="ea">Fuel 3 Ash (%)</label>
+                    <input type="number" id="ea" name="ea" placeholder="Enter percentage" required>
+                </td>
+            </tr>
+
+            <!-- หัวตารางแถวที่ 2 -->
+            <tr>
+                <th>Entering Stack Steam Properties</th>
+                <th>Ash Properties</th>
+                <th>Combustion Air Properties</th>
+            </tr>
+
+            <!-- แถวที่ 2 -->
+            <tr>
+                <td>
+                    <label for="tifg">Temperature of Inlet Flue Gas (Stack Temp) (C)</label>
+                    <input type="number" id="tifg" name="tifg" placeholder="Enter C" readonly>
+
+                    <label for="Psat">Psat at stack temp (kPa)</label>
+                    <input type="number" id="Psat" name="Psat" placeholder="Enter kPa" required>
+                </td>
+
+                <td>
+                    <label for="bottomashcarbon">Bottom Ash Carbon (%)</label>
+                    <input type="number" id="bottomashcarbon" name="bottomashcarbon" placeholder="Enter percentage" required>
+                </td>
+                <td>
+                    <a class="button" href="https://www.kwangu.com/work/psychrometric.htm" target="_blank">Psychrometric Calculator</a>
+
+                    <label for="moleofwatervaporpermoleofoxygeninhumidairAlpha">Mole of water vapor per mole of oxygen in humid air,Alpha</label>
+                    <input type="number" id="moleofwatervaporpermoleofoxygeninhumidairAlpha" name="moleofwatervaporpermoleofoxygeninhumidairAlpha" placeholder="Enter Mole" required>
+            </td>
+            </tr>
+
+            <!-- หัวตารางแถวที่ 3 -->
+            <tr>
+
+                <th colspan="3">Record Value of O2 and CO</th>
+                
+                
+            </tr>
+
+            <!-- แถวที่ 3 -->
+            <tr>
+                <td colspan="3">
+
+                    <label for="recordvalueofo2">Record Value Of O2 (%v/v O2 dry)</label>
+                    <input type="number" id="recordvalueofo2" name="recordvalueofo2" placeholder="Enter percentage" required>
+        
+                    <label for="recordvalueofco">Record Value Of CO (ppm CO)</label>
+                    <input type="number" id="recordvalueofco" name="recordvalueofco" placeholder="ppm" required></td>
+        
+                
+            </tr>
+
+            <tr>
+            <th colspan="3"><button type="button" onclick="calculateResults()">Calculate</button></th>
+            </tr>
+
+            <!-- แถว Result 1 -->
+            <tr>
+                <th colspan="3">Result</th>
+            </tr>
+            <tr>
+                
+                <td colspan="3" class="result" id="results">
+        
+                <p id="stoichiometricairFuelRatio">Stoichiometric Air-Fuel Ratio: -</p>
+                <p id="actualAir"> Percent Excess air: -</p>
+                <p id="actualairFuelRatio">Actual Air-Fuel Ratio: -</p>
+                <p id="equivalentratio">Equivalent ratio: -</p>
+                <p id="percentRH">RH: -</p>
+                <p id="validatevalueofo2">Validate Value Of O2: -</p>
+                <p id="validatevalueofco">Validate Value Of CO: -</p>
+                <p id="AH">Air humidity: -</p>
+                <p id="mof">Mass flow rate of fuel (Mf): -</p>
+                <p id="moa">Mass flow rate of air (Ma): -</p>
+                <p id="mofg">Mass flow rate of flue gas (Mfg): -</p>
+                <p id="Qoac">Heat from fuel to flue gas (Qac): -</p>
+                <p id="mow">Left over moisture in flue gas (Mw): -</p>
+                <p id="tlm">Logarithmic mean temperature difference (LMTD): -</p>
+                <p id="as">Heat Transfer Area (As): -</p>
+                <p id="MLIF">Moisture Left In Fuel: -</p>
+                <p id="MLIFG">Moisture Left In Flue Gas: -</p>
+                
+                </td>
+
+            </tr>
+
+            
+        </table>
+        
+    </div>
+
+    <script>
+        function syncInputs() {
+            let value1 = document.getElementById("tif").value;
+
+            document.getElementById("tifg").value = value1;
+        }
+
+        function calculateLn(x) {
+        if (x > 0) {
+        return Math.log(x).toFixed(9); // คำนวณ ln(x) และแสดงผลเป็นทศนิยม 6 ตำแหน่ง
+        }    
+        else {
+        return "Error: x must be greater than 0";
+        }
+        }
+        
+       
+        function calculateResults() {
+            // Get input values
+            const woodchip = parseFloat(document.getElementById('woodchip').value) || 0;
+            const mwc = parseFloat(document.getElementById('mwc').value) || 0;
+            const palmFrond = parseFloat(document.getElementById('palmFrond').value) || 0;
+            const mpf = parseFloat(document.getElementById('mpf').value) || 0;
+            const efb = parseFloat(document.getElementById('efb').value) || 0;
+            const mefb = parseFloat(document.getElementById('mefb').value) || 0;
+            const BSFR = parseFloat(document.getElementById('BSFR').value) || 0;
+            const BSE = parseFloat(document.getElementById('BSE').value) || 0;
+            const BE = parseFloat(document.getElementById('BE').value) || 0;
+            const FWE = parseFloat(document.getElementById('FWE').value) || 0;
+            const LHV = parseFloat(document.getElementById('LHV').value) || 0;
+            const tifg = parseFloat(document.getElementById('tifg').value) || 0;
+            const Psat = parseFloat(document.getElementById('Psat').value) || 0;
+            const tofg = parseFloat(document.getElementById('tofg').value) || 0;
+            const tia = parseFloat(document.getElementById('tia').value) || 0;
+            const toa = parseFloat(document.getElementById('toa').value) || 0;
+            const cpfg = parseFloat(document.getElementById('cpfg').value) || 0;
+            const cpf = parseFloat(document.getElementById('cpf').value) || 0;
+            const u = parseFloat(document.getElementById('u').value) || 0;
+            const L = parseFloat(document.getElementById('L').value) || 0;
+            const wc = parseFloat(document.getElementById('wc').value) || 0;
+            const wh = parseFloat(document.getElementById('wh').value) || 0;
+            const wn = parseFloat(document.getElementById('wn').value) || 0;
+            const ws = parseFloat(document.getElementById('ws').value) || 0;
+            const wo = parseFloat(document.getElementById('wo').value) || 0;
+            const wa = parseFloat(document.getElementById('wa').value) || 0;
+            const pfc = parseFloat(document.getElementById('pfc').value) || 0;
+            const pfh = parseFloat(document.getElementById('pfh').value) || 0;
+            const pfn = parseFloat(document.getElementById('pfn').value) || 0;
+            const pfs = parseFloat(document.getElementById('pfs').value) || 0;
+            const pfo = parseFloat(document.getElementById('pfo').value) || 0;
+            const pfa = parseFloat(document.getElementById('pfa').value) || 0;
+            const ec = parseFloat(document.getElementById('ec').value) || 0;
+            const eh = parseFloat(document.getElementById('eh').value) || 0;
+            const en = parseFloat(document.getElementById('en').value) || 0;
+            const es = parseFloat(document.getElementById('es').value) || 0;
+            const eo = parseFloat(document.getElementById('eo').value) || 0;
+            const ea = parseFloat(document.getElementById('ea').value) || 0;
+            const bottomashcarbon = parseFloat(document.getElementById('bottomashcarbon').value) || 0;
+            const moleofwatervaporpermoleofoxygeninhumidairAlpha = parseFloat(document.getElementById('moleofwatervaporpermoleofoxygeninhumidairAlpha').value) || 0;
+            const recordvalueofo2 = parseFloat(document.getElementById('recordvalueofo2').value) || 0;
+            const recordvalueofco = parseFloat(document.getElementById('recordvalueofco').value) || 0;
+            
+
+
+
+            // Validate inputs sum to 100%
+            const total = woodchip + palmFrond + efb;
+            if (total !== 100) {
+                alert('The Fuel percentages must add up to 100%.');
+                return;
+            }
+
+            // Calculation
+            let moisture = ( woodchip * mwc / 100 ) + ( palmFrond * mpf / 100 ) + ( efb * mefb / 100 )
+            let bottomashash = 100 - bottomashcarbon
+            let C = woodchip * wc / 100 + palmFrond * pfc / 100 + efb * ec / 100
+            let H = woodchip * wh / 100 + palmFrond * pfh / 100 + efb * eh / 100
+            let N = woodchip * wn / 100 + palmFrond * pfn / 100 + efb * en / 100
+            let S = woodchip * ws / 100 + palmFrond * pfs / 100 + efb * es / 100
+            let O = woodchip * wo / 100 + palmFrond * pfo / 100 + efb * eo / 100
+            let A = woodchip * wa / 100 + palmFrond * pfa / 100 + efb * ea / 100
+            let CD = C * ((100-A) / 100)
+            let HD = H * ((100-A) / 100)
+            let ND = N * ((100-A) / 100)
+            let SD = S * ((100-A) / 100)
+            let OD = O * ((100-A) / 100)
+            let CA = CD * ((100-moisture) / 100)
+            let HA = HD * ((100-moisture) / 100)
+            let NA = ND * ((100-moisture) / 100)
+            let SA = SD * ((100-moisture) / 100)
+            let OA = OD * ((100-moisture) / 100)
+            let AA = A * ((100-moisture) / 100)
+            let MC = CA / 100
+            let MH = HA / 100
+            let MN = NA / 100
+            let MS = SA / 100
+            let MO = OA / 100
+            let MA = AA / 100
+            let KC = MC / 12
+            let KH = MH / 1
+            let KN = MN / 14
+            let KS = MS / 32
+            let KO = MO / 16
+            let MMH = moisture / 100 * 2 / 18
+            let MMO = moisture / 100 * 16 /18
+            let KMH = MMH / 1
+            let KMO = MMO / 16
+            let CF = AA * bottomashcarbon / bottomashash
+            let CAF = CA - CF
+            let T = CAF + HA + NA +SA + OA + AA + moisture
+            let RCA = 100 * CAF / T
+            let RHA = 100 * HA / T
+            let RNA = 100 * NA / T
+            let RSA = 100 * SA / T
+            let ROA = 100 * OA / T
+            let RAA = 100 * AA / T
+            let RM = 100 * moisture / T
+            let RMC = RCA / 100
+            let RMH = RHA / 100
+            let RMN = RNA / 100
+            let RMS = RSA / 100
+            let RMO = ROA / 100
+            let RMA = RAA / 100
+            let RMMH = RM / 100 * 2 / 18
+            let RMMO = RM / 100 * 16 / 18
+            let RKC = RMC / 12
+            let RKH = RMH / 1
+            let RKN = RMN / 14
+            let RKS = RMS / 32
+            let RKO = RMO / 16 
+            let RKMH = RMMH / 1
+            let RKMO = RMMO / 16
+            let RTK = RKC + RKH + RKN + RKS + RKO + RKMH + RKMO
+            let BC = RKC
+            let BH = ( RKH + RKMH ) / 2
+            let BS = RKS
+            let BO = ( 2 * BC + BH + 2 * BS - RKO - RKMO ) / 2
+            let BN = ( RKN + 2 * 3.76 * BO ) / 2
+            let O2 = recordvalueofo2 / 100
+            let CO = recordvalueofco / 1000000
+            let FC = 4.76 * RKC
+            let FH = 0.94 * RKH
+            let FCO = -1.88
+            let FZ = 4.76
+            let FF = 4.76 * RKS
+            let FO = -1.88 * RKO
+            let FMH = 0.94 * RKMH
+            let FMO = -1.88 * RKMO
+            let AO2 = ( O2 * FZ ) - 1
+            let BO2 = O2 * FCO
+            let CO2 = O2 * ( FC + FF + FMH + FH + FO + FMO )
+            let ACO =  CO * FZ 
+            let BCO = ( CO * FCO ) - 1
+            let CCO = CO * ( FC + FF + FMH + FH + FO + FMO )
+            let X = (( BO2 * CCO ) - ( BO2 * CO2 ) - (( BCO - BO2 ) * CO2 )) / (( BCO * AO2 ) - ( BO2 * ACO ))
+            let Y = ((( AO2 - ACO ) * X ) + ( CO2 - CCO )) / ( BCO - BO2 )
+            let CIF = RKC 
+            let CICO = Y
+            let CICO2 = CIF - CICO
+            let HIFM = RKH + RKMH
+            let HIH = HIFM / 2
+            let SIF = RKS 
+            let SIS = SIF
+            let OIO = RKO + RKMO 
+            let OICO2 = CICO2 * 2
+            let OIH2O = HIH
+            let OISO2 = 2 * SIS 
+            let OICO = CICO
+            let OIO2 = X * 2
+            let AOO = OICO2 + OIH2O + OISO2 + OICO + OIO2
+            let AAC = ( AOO - OIO ) / 2
+            let AAL = AAC * moleofwatervaporpermoleofoxygeninhumidairAlpha
+            let OIFMA = RKO + RKMO + AAC * 2
+            let NIFA = RKN + AAC * 3.76 * 2
+            let NIN2 = NIFA / 2
+            let h = X
+            let CO2M = (( CICO2 ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let H2OM = (( HIH + AAL ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let SO2M = (( SIS ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let N2M = (( NIN2 ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let O2M = (( h ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let COM = (( CICO ) / ( CICO2 + CICO + HIH + NIN2 + SIS + h + AAL ))
+            let TM = CO2M + H2OM + SO2M + N2M + O2M + COM
+            let CO2VW = CO2M * 100
+            let H2OVW = H2OM * 100
+            let SO2VW = SO2M * 100
+            let N2VW = N2M * 100
+            let O2VW = O2M * 100
+            let COVW = COM * 100
+            let CO2VD = CO2VW * 100 / ( 100 - H2OVW )
+            let SO2VD = SO2VW * 100 / ( 100 - H2OVW )
+            let N2VD = N2VW * 100 / ( 100 - H2OVW )
+            let O2VD = O2VW * 100 / ( 100 - H2OVW )
+            let COVD = COVW * 100 / ( 100 - H2OVW )
+            let MWEG = 44 * CO2M + 18 * H2OM + 64 * SO2M + 28 * N2M + 32 * O2M + 28 * COM
+            let CO2N = CICO2
+            let H2ON = HIH + AAL
+            let SO2N = SIS
+            let N2N = NIN2
+            let O2N = h
+            let CON = CICO
+            let TN = CO2N + H2ON + SO2N + N2N + O2N + CON
+            let PV = H2ON / TN * 101.325
+            let Mst = BSFR * 1000 / 3600
+            let tav = ( tifg - toa ) / ( tofg - tia )
+            let tov = calculateLn(tav)
+            let mwdfg = 44 * CO2M + 64 * SO2M + 28 * N2M + 32 * O2M + 28 * COM
+            let kodfg = 1 / mwdfg
+
+            
+            
+            
+            
+            
+
+
+
+            const stoichiometricAir = BO * ( 1 * 32 + 3.76 * 28 ) + moleofwatervaporpermoleofoxygeninhumidairAlpha * BO * 18 ;
+            const stoichiometricairFuelRatio = stoichiometricAir;
+            const actualAir = (( AAC / BO ) - 1 ) * 100;
+            const actualairFuelRatio = AAC * ( 1 * 32 + 3.76 * 28 ) + AAL * 18;
+            const equivalentratio = stoichiometricairFuelRatio / actualairFuelRatio;
+            const massofwater = H2OM * 18
+            const massoffluegas = MWEG / TM
+            const percentRH = PV / Psat * 100
+            const moisturecontent = massofwater / massoffluegas * 100
+            const validatevalueofo2 = O2VD
+            const validatevalueofco = COVD * 10000
+            const AH = ((( H2OM * 18 ) / ( 44 * CO2M + 64 * SO2M + 28 * N2M + 32 * O2M + 28 * COM )) * PV ) / ( 101.325 - PV)
+            const mof = (Mst * ( BSE - FWE ) * 100 / LHV ) / BE
+            const moa = actualairFuelRatio * mof
+            const mofg = moa + mof
+            const Qoac = mofg * cpfg * ( tifg - tofg )
+            const mow = ( Qoac - ( mof * cpf * ( toa - tia ))) / ( (4.18 * 65) + 2257 )
+            const tlm = (( tifg - toa ) - ( tofg - tia )) / tov
+            const as = Qoac * 1000 / L / u / tlm
+            let AL = (( mof * ( moisture / 100 ) )- mow )/( ( moisture / 100 ) * mof )
+            const MLIF = ( AL * ( moisture / 100 ) )/(( 1 - ( moisture / 100 ) )+( AL * ( moisture / 100 ) )) * 100
+            let mff = (( 1 - AL ) * ( moisture / 100 ) ) / mwdfg
+            const MLIFG = mff + AH
+            
+
+
+            
+            if (mow < 0) {
+                alert('Mw is below 0 Please input new Temperature of Outlet Air');
+                return;
+            }
+            
+
+            // Display results
+            
+            document.getElementById('stoichiometricairFuelRatio').innerText = `Stoichiometric Air-Fuel Ratio: ${stoichiometricairFuelRatio.toFixed(9)}:1`;
+            document.getElementById('actualAir').innerText = `Percent Excess air: ${actualAir.toFixed(9)} %`;
+            document.getElementById('actualairFuelRatio').innerText = `Actual Air-Fuel Ratio: ${actualairFuelRatio.toFixed(9)}:1`;
+            document.getElementById('equivalentratio').innerText = `Equivalent Ratio: ${equivalentratio.toFixed(9)} Lamda`;
+            document.getElementById('percentRH').innerText = `RH: ${percentRH.toFixed(9)} %`;
+            document.getElementById('validatevalueofo2').innerText = `Validate Value Of O2: ${validatevalueofo2.toFixed(9)} %v/v O2 dry`;
+            document.getElementById('validatevalueofco').innerText = `Validate Value Of CO: ${validatevalueofco.toFixed(9)} ppm CO`;
+            document.getElementById('AH').innerText = `Air humidity: ${AH.toFixed(9)} kg water / kg dry air`;
+            document.getElementById('mof').innerText = `Mass flow rate of fuel (Mf): ${mof.toFixed(9)} kg/s`;
+            document.getElementById('moa').innerText = `Mass flow rate of air (Ma): ${moa.toFixed(9)} kg/s`;
+            document.getElementById('mofg').innerText = `Mass flow rate of flue gas (Mfg): ${mofg.toFixed(9)} kg/s`;
+            document.getElementById('Qoac').innerText = `Heat from fuel to flue gas (Qac): ${Qoac.toFixed(9)} kJ/s`;
+            document.getElementById('mow').innerText = `Left over moisture in flue gas (Mw): ${mow.toFixed(9)} kg/s`;
+            document.getElementById('tlm').innerText = `Logarithmic mean temperature difference (LMTD): ${tlm.toFixed(9)} C`;
+            document.getElementById('as').innerText = `Heat Transfer Area (As): ${as.toFixed(9)} m^2`;
+            document.getElementById('MLIF').innerText = `Moisture Left In Fuel: ${MLIF.toFixed(9)} %`;
+            document.getElementById('MLIFG').innerText = `Moisture Left In Flue Gas: ${MLIFG.toFixed(9)} kg water / kg dry flue gas`;
+            
+        }
+    </script>
+
+</body>
+</html>

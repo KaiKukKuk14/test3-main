@@ -305,10 +305,10 @@
                 <p id="mof">Mass flow rate of fuel (Mf): -</p>
                 <p id="moa">Mass flow rate of air (Ma): -</p>
                 <p id="mofg">Mass flow rate of flue gas (Mfg): -</p>
-                <p id="Qoac">Heat from fuel to flue gas (Qac): -</p>
+                <p id="Qoac">Heat from flue gas to fuel (Qac): -</p>
                 <p id="mow">mass flow rate of water removed from fuel (Mw): -</p>
                 <p id="tlm">Logarithmic mean temperature difference (LMTD): -</p>
-                <p id="as">Heat Transfer Area (As): -</p>
+                <p id="as"> Cross sectinal area of dryer (As): -</p>
                 <p id="MLIF">Moisture Left In Fuel: -</p>
                 <p id="MLIFG">Moisture Left In Flue Gas: -</p>
                 
@@ -580,10 +580,10 @@
             document.getElementById('mof').innerText = `Mass flow rate of fuel (Mf): ${mof.toFixed(9)} kg/s`;
             document.getElementById('moa').innerText = `Mass flow rate of air (Ma): ${moa.toFixed(9)} kg/s`;
             document.getElementById('mofg').innerText = `Mass flow rate of flue gas (Mfg): ${mofg.toFixed(9)} kg/s`;
-            document.getElementById('Qoac').innerText = `Heat from fuel to flue gas (Qac): ${Qoac.toFixed(9)} kJ/s`;
+            document.getElementById('Qoac').innerText = `Heat from flue gas to fuel (Qac): ${Qoac.toFixed(9)} kJ/s`;
             document.getElementById('mow').innerText = `mass flow rate of water removed from fuel (Mw): ${mow.toFixed(9)} kg/s`;
             document.getElementById('tlm').innerText = `Logarithmic mean temperature difference (LMTD): ${tlm.toFixed(9)} C`;
-            document.getElementById('as').innerText = `Heat Transfer Area (As): ${as.toFixed(9)} m^2`;
+            document.getElementById('as').innerText = ` Cross sectinal area of dryer (As): ${as.toFixed(9)} m^2`;
             document.getElementById('MLIF').innerText = `Moisture Left In Fuel: ${MLIF.toFixed(9)} %`;
             document.getElementById('MLIFG').innerText = `Moisture Left In Flue Gas: ${MLIFG.toFixed(9)} kg water / kg dry flue gas`;
             
